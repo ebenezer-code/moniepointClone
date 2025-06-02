@@ -1,11 +1,11 @@
-import Layout from "./components/Layout"
+import Header from "./components/Header"
 function App() {
 
 
   return (
-     <Layout>
-        <h1 className="text-red-600">Hello</h1>
-     </Layout>
+      <>
+      <Header />
+      </>
   )
 }
 
