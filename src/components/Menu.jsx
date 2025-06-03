@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { subMenu as menuData } from "../data/menu";
-
+import { MdKeyboardArrowDown } from "react-icons/md";
 function Menu() {
   const [activeMenu, setActiveMenu] = useState(null); 
   const [activeSubIndex, setActiveSubIndex] = useState(null);
@@ -28,6 +28,7 @@ function Menu() {
             className="cursor-pointer relative transition-all ease-in-out duration-200"
           >
             {menu.name}
+            <MdKeyboardArrowDown />
 
             {activeMenu === i && (
               <div className="absolute top-full left-1/2 -translate-x-1/2 bg-red-600 text-white shadow-lg rounded-md p-4 z-50 flex gap-8 transition-all duration-300 min-w-[400px]">

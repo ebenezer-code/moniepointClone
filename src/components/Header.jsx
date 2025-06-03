@@ -2,7 +2,6 @@ import { useState } from "react";
 import Layout from "./Layout";
 import logo from "../assets/headerIcons/logo.png";
 import Menu from "./Menu";
-import { MdKeyboardArrowDown } from "react-icons/md";
 
 const navItems = ["Business", "Personal"];
 const moreNavItems = ["About", "Contact", "Blog"];
@@ -29,7 +28,7 @@ function Header() {
                   } min-w-[80px] min-h-[36px] transition-all duration-300 rounded-2xl cursor-pointer text-center flex items-center justify-center`}
                 >
                   {item}
-                    <MdKeyboardArrowDown />
+                    
                 </li>
               ))}
             </ul>
