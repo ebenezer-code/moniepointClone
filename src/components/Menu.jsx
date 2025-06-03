@@ -1,12 +1,20 @@
 import { useState } from "react";
 import { subMenu as menuData } from "../data/menu";
 import { MdKeyboardArrowDown } from "react-icons/md";
-function Menu() {
-  const [activeMenu, setActiveMenu] = useState(null); 
-  const [activeSubIndex, setActiveSubIndex] = useState(null);
-  const [hoverSubIndex, setHoverSubIndex] = useState(null);
 
-  const getActiveSub = () => hoverSubIndex ?? activeSubIndex;
+function Menu() {
+  const [menuState, setMenuState] = useState({
+    activeMenu: null,
+    activeSubIndex: null,
+    hoverSubIndex: null,
+  });
+
+  const updateMenuState = (updates) => {
+    setMenuState((prev) => ({ ...prev, ...updates }));
+  };
+
+  const getActiveSub = () =>
+    menuState.hoverSubIndex ?? menuState.activeSubIndex;
 
   return (
     <div className="relative">
@@ -14,21 +22,22 @@ function Menu() {
         className="flex gap-4 text-white text-[13px] relative"
         onMouseEnter={() => {}}
         onMouseLeave={() => {
-          setActiveMenu(null);
-          setHoverSubIndex(null);
+          updateMenuState({
+            activeMenu: null,
+            hoverSubIndex: null,
+          });
         }}
       >
         {menuData.map((menu, i) => (
           <li
             key={i}
             onMouseEnter={() => {
-              setActiveMenu(i);
-              setHoverSubIndex(null);
+              updateMenuState({ activeMenu: i, hoverSubIndex: null });
             }}
             className="cursor-pointer relative transition-all ease-in-out duration-200 flex items-center justify-center"
           >
             {menu.name}
-            {activeMenu === i && (
+            {menuState.activeMenu === i && (
               <div className="absolute top-full left-1/2 -translate-x-1/2 bg-red-600 text-white shadow-lg rounded-md p-4 z-50 flex gap-8 transition-all duration-300 min-w-[400px]">
                 <div className="w-1/2">
                   {menu.submenu?.map((sub, j) => {
@@ -41,8 +50,12 @@ function Menu() {
                             ? "bg-white text-red-600 font-semibold"
                             : "hover:bg-red-500"
                         }`}
-                        onMouseEnter={() => setHoverSubIndex(j)}
-                        onClick={() => setActiveSubIndex(j)}
+                        onMouseEnter={() =>
+                          updateMenuState({ hoverSubIndex: j })
+                        }
+                        onClick={() =>
+                          updateMenuState({ activeSubIndex: j })
+                        }
                       >
                         <p>{sub.name}</p>
                         {sub.about && (
@@ -66,7 +79,7 @@ function Menu() {
                 </div>
               </div>
             )}
-             <MdKeyboardArrowDown className="text-[13px] mx-1"/>
+            <MdKeyboardArrowDown className="text-[13px] mx-1" />
           </li>
         ))}
       </ul>
