@@ -1,4 +1,3 @@
-// src/components/Header.jsx
 import { useState } from "react";
 import Layout from "./Layout";
 import logo from "../assets/headerIcons/logo.png";
