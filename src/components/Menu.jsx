@@ -11,7 +11,7 @@ function Menu() {
   return (
     <div className="relative">
       <ul
-        className="flex gap-4 text-white text-sm relative"
+        className="flex gap-4 text-white text-[13px] relative"
         onMouseEnter={() => {}}
         onMouseLeave={() => {
           setActiveMenu(null);
@@ -25,7 +25,7 @@ function Menu() {
               setActiveMenu(i);
               setHoverSubIndex(null);
             }}
-            className="cursor-pointer relative transition-all ease-in-out duration-200"
+            className="cursor-pointer relative transition-all ease-in-out duration-200 flex items-center justify-center"
           >
             {menu.name}
             {activeMenu === i && (
@@ -66,9 +66,9 @@ function Menu() {
                 </div>
               </div>
             )}
+             <MdKeyboardArrowDown className="text-[13px] mx-1"/>
           </li>
         ))}
-        <MdKeyboardArrowDown />
       </ul>
     </div>
   );
