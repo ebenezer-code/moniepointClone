@@ -6,7 +6,7 @@ import { IoCloseSharp } from "react-icons/io5";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
-    <header className="w-full bg-[#030B1D] text-white sticky top-0 z-50">
+    <header className="w-full bg-[#061435] text-white sticky top-0 z-50">
       <nav className="max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-start md:items-center justify-between h-auto md:h-20 p-0 lg:p-6 space-y-4 md:space-y-0">
         <div className="flex flex-col-reverse md:flex-row md:items-center md:space-x-6 md:w-1/2 w-full">
           <div className="flex w-full justify-between p-4 items-center md:w-auto md:p-0">
@@ -30,7 +30,7 @@ const Header = () => {
               />
             </div>
           </div>
-          <ul className="flex w-full h-17 md:flex md:space-x-6 md:w-auto md:border-none border-[#808080] border-b-[0.2px]">
+          <ul className="flex w-full h-14 md:flex md:space-x-6 md:w-auto md:border-none border-[#808080] border-b-[0.2px]">
             <li className="w-1/2 flex items-center justify-center md:w-auto md:py-0 md:border-none border-[#808080] border-r-[0.2px]">
               Business
             </li>
