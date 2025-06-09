@@ -4,9 +4,12 @@ import { IoMenu } from "react-icons/io5";
 import { IoCloseSharp } from "react-icons/io5";
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [state, setState] = useState({
+    isMenuOpen: false,
+    isActive: "Business",
+  });
   return (
-    <header className="w-full bg-[#061435] text-white sticky top-0 z-50">
+    <header className="w-full bg-[#061435] text-white sticky top-0 z-50 font-[Inter] text-[12px]">
       <nav className="max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-start md:items-center justify-between h-auto md:h-20 p-0 lg:p-6 space-y-4 md:space-y-0">
         <div className="flex flex-col-reverse md:flex-row md:items-center md:space-x-6 md:w-1/2 w-full">
           <div className="flex w-full justify-between p-4 items-center md:w-auto md:p-0">
@@ -17,24 +20,42 @@ const Header = () => {
             />
             <div className="relative w-6 h-6 md:hidden">
               <IoMenu
-                onClick={() => setIsMenuOpen(true)}
+                onClick={() => setState({ ...state, isMenuOpen: true })}
                 className={`absolute top-0 left-0 text-2xl transition-opacity duration-200 ${
-                  isMenuOpen ? "opacity-0 pointer-events-none" : "opacity-100"
+                  state.isMenuOpen
+                    ? "opacity-0 pointer-events-none"
+                    : "opacity-100"
                 }`}
               />
               <IoCloseSharp
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() => setState({ ...state, isMenuOpen: false })}
                 className={`absolute top-0 left-0 text-2xl transition-opacity duration-200 ${
-                  isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+                  state.isMenuOpen
+                    ? "opacity-100"
+                    : "opacity-0 pointer-events-none"
                 }`}
               />
             </div>
           </div>
-          <ul className="flex w-full h-14 md:flex md:space-x-6 md:w-auto md:border-none border-[#808080] border-b-[0.2px]">
-            <li className="w-1/2 flex items-center justify-center md:w-auto md:py-0 md:border-none border-[#808080] border-r-[0.2px]">
+          <ul className="flex w-full h-14 md:h-8 md:flex md:space-x-6 md:w-auto md:border-none border-[#808080] border-b-[0.2px] cursor-pointer">
+            <li
+              onClick={() => setState({ ...state, isActive: "Business" })}
+              className={`${
+                state.isActive === "Business"
+                  ? "bg-[#0E2256] md:bg-[#37435D]"
+                  : "bg-transparent"
+              } md:rounded-full md:p-4 w-1/2 flex items-center justify-center md:w-auto md:py-0 md:border-none border-[#808080] border-r-[0.2px] transition-background duration-300 ease-in-out`}
+            >
               Business
             </li>
-            <li className="w-1/2 flex items-center justify-center md:w-auto md:py-0 md:border-none">
+            <li
+              onClick={() => setState({ ...state, isActive: "Personal" })}
+              className={`${
+                state.isActive === "Personal"
+                  ? "bg-[#0E2256] md:bg-[#37435D]"
+                  : "bg-transparent"
+              }  md:rounded-full md:p-4 w-1/2 flex items-center justify-center md:w-auto md:py-0 md:border-none transition-background duration-300 ease-in-out`}
+            >
               Personal
             </li>
           </ul>
