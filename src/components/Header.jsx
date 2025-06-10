@@ -44,7 +44,7 @@ const Header = () => {
                 state.isActive === "Business"
                   ? "bg-[#0E2256] lg:bg-[#37435D]"
                   : "bg-transparent"
-              } lg:rounded-full lg:p-4 w-1/2 flex items-center justify-center lg:w-auto lg:py-0 lg:border-none border-[#808080] border-r-[0.2px] transition-background duration-300 ease-in-out`}
+              } lg:rounded-full hover:bg-[#37435D] lg:p-4 w-1/2 flex items-center justify-center lg:w-auto lg:py-0 lg:border-none border-[#808080] border-r-[0.2px] transition-background duration-300 ease-in-out`}
             >
               Business
             </li>
@@ -54,7 +54,7 @@ const Header = () => {
                 state.isActive === "Personal"
                   ? "bg-[#0E2256] lg:bg-[#37435D]"
                   : "bg-transparent"
-              }  lg:rounded-full lg:p-4 w-1/2 flex items-center justify-center lg:w-auto lg:py-0 lg:border-none transition-background duration-300 ease-in-out`}
+              }  lg:rounded-full hover:bg-[#37435D] lg:p-4 w-1/2 flex items-center justify-center lg:w-auto lg:py-0 lg:border-none transition-background duration-300 ease-in-out`}
             >
               Personal
             </li>
