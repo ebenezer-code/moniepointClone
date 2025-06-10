@@ -4,13 +4,14 @@ import { IoMenu } from "react-icons/io5";
 import { IoCloseSharp } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
 
+const navLink = ["Business", "Personal"];
+
 const Header = () => {
   const [state, setState] = useState({
     isMenuOpen: false,
-    isActive: "Business",
+    isActive: navLink[0],
     isOpen: false,
   });
-
   return (
     <header className="w-full bg-[#061435] text-white sticky top-0 z-50 font-[Inter] text-[15px]">
       <nav className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-start lg:items-center justify-between h-auto lg:h-20 p-0 lg:p-6 space-y-4 lg:space-y-0 lg:space-x-40">
@@ -40,27 +41,24 @@ const Header = () => {
               />
             </div>
           </div>
-          <ul className="flex w-full h-14 lg:h-8 lg:flex lg:space-x-6 lg:w-auto lg:border-none border-[#808080] border-b-[0.2px] cursor-pointer">
-            <li
-              onClick={() => setState({ ...state, isActive: "Business" })}
-              className={`${
-                state.isActive === "Business"
-                  ? "bg-[#0E2256] lg:bg-[#37435D]"
-                  : "bg-transparent"
-              } lg:rounded-full hover:bg-[#37435D] lg:p-4 w-1/2 flex items-center justify-center lg:w-auto lg:py-0 lg:border-none border-[#808080] border-r-[0.2px] transition-background duration-300 ease-in-out`}
-            >
-              Business
-            </li>
-            <li
-              onClick={() => setState({ ...state, isActive: "Personal" })}
-              className={`${
-                state.isActive === "Personal"
-                  ? "bg-[#0E2256] lg:bg-[#37435D]"
-                  : "bg-transparent"
-              }  lg:rounded-full hover:bg-[#37435D] lg:p-4 w-1/2 flex items-center justify-center lg:w-auto lg:py-0 lg:border-none transition-background duration-300 ease-in-out`}
-            >
-              Personal
-            </li>
+          <ul className="flex w-full h-14 lg:h-8 lg:flex lg:space-x-6 lg:w-auto cursor-pointer">
+            {navLink.map((item, i) => (
+              <li
+                key={i}
+                onClick={() => setState({ ...state, isActive: item })}
+                className={`${
+                  state.isActive === item
+                    ? "bg-[#0E2256] lg:bg-[#37435D]"
+                    : "bg-transparent"
+                } lg:rounded-full hover:bg-[#37435D] lg:p-4 w-1/2 flex items-center justify-center lg:w-auto lg:py-0 lg:border-none border-[#808080] ${
+                  state.isActive === navLink[0]
+                    ? "border-b-[0.2px]"
+                    : "border-none"
+                } transition-background duration-300 ease-in-out`}
+              >
+                {item}
+              </li>
+            ))}
           </ul>
         </div>
         <div className="flex flex-col lg:flex-row lg:items-center lg:space-x-6 lg:w-1/2 w-full">
