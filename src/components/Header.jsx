@@ -2,7 +2,7 @@ import { useState } from "react";
 import logo from "../assets/headerIcons/logo.png";
 import { IoMenu } from "react-icons/io5";
 import { IoCloseSharp } from "react-icons/io5";
-import { IoIosArrowDown } from "react-icons/io";
+import { Menu } from "./Menu";
 
 const navLink = ["Business", "Personal"];
 
@@ -10,8 +10,8 @@ const Header = () => {
   const [state, setState] = useState({
     isMenuOpen: false,
     isActive: navLink[0],
-    isOpen: false,
   });
+
   return (
     <header className="w-full bg-[#061435] text-white sticky top-0 z-50 font-[Inter] text-[15px]">
       <nav className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-start lg:items-center justify-between h-auto lg:h-20 p-0 lg:p-6 space-y-4 lg:space-y-0 lg:space-x-40">
@@ -63,32 +63,7 @@ const Header = () => {
         </div>
         <div className="flex flex-col lg:flex-row lg:items-center lg:space-x-6 lg:w-1/2 w-full">
           <div className="hidden lg:flex space-x-6">
-            <div className="relative">
-              <button
-                className="flex items-center justify-center gap-1 cursor-pointer"
-                onMouseEnter={() => setState({ ...state, isOpen: true })}
-                onMouseLeave={() => setState({ ...state, isOpen: false })}
-              >
-                Products{" "}
-                <span>
-                  <IoIosArrowDown />
-                </span>
-              </button>
-              {state.isOpen && <div></div>}
-            </div>
-            <div className="relative">
-              <button
-                className="flex items-center justify-center gap-1 cursor-pointer"
-                onMouseEnter={() => setState({ ...state, isOpen: true })}
-                onMouseLeave={() => setState({ ...state, isOpen: false })}
-              >
-                Company
-                <span>
-                  <IoIosArrowDown />
-                </span>
-              </button>
-              {state.isOpen && <div></div>}
-            </div>
+            <Menu />
           </div>
           <div className="hidden lg:flex space-x-6">
             <ul className="flex space-x-4">
