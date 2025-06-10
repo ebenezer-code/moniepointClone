@@ -5,12 +5,12 @@ export const subMenu = [
     submenu: [
       {
         name: "Banking",
-        about: "",
+        about: "Business and personal banking accounts",
         icon: "",
         submenu: [
           { name: "Business Account", about: "", icon: "" },
-          { name: "USSD", about: "", icon: "" }
-        ]
+          { name: "USSD", about: "", icon: "" },
+        ],
       },
       {
         name: "Credit",
@@ -20,21 +20,21 @@ export const subMenu = [
           {
             name: "Working capital loans",
             about: "Flexible loans that help your business grow",
-            icon: ""
+            icon: "",
           },
           {
             name: "Overdraft",
             about: "Keep your business going even when money is low",
             icon: "",
-            comingSoon: true
+            comingSoon: true,
           },
           {
             name: "Salary advance",
             about: "Provide salary advance for employees",
             icon: "",
-            comingSoon: true
-          }
-        ]
+            comingSoon: true,
+          },
+        ],
       },
       {
         name: "Payments",
@@ -43,15 +43,16 @@ export const subMenu = [
         submenu: [
           {
             name: "POS terminal",
-            about: "Accept card and transfer payments with the Moniepoint POS terminal",
-            icon: ""
+            about:
+              "Accept card and transfer payments with the Moniepoint POS terminal",
+            icon: "",
           },
           {
             name: "Web Payments(Monnify)",
             about: "Collect web payments with ease using Monnify",
-            icon: ""
-          }
-        ]
+            icon: "",
+          },
+        ],
       },
       {
         name: "Business Management",
@@ -61,23 +62,23 @@ export const subMenu = [
           {
             name: "Expense Cards",
             about: "Get a secure card for your business expenses",
-            icon: ""
+            icon: "",
           },
           {
             name: "CAC registration",
             about:
               "Easily register your business name via our banking dashboard and get CAC-approved in just five days.",
-            icon: ""
+            icon: "",
           },
           {
             name: "Bookkeeping",
             about: "Manage your business finances with ease and efficiency",
             icon: "",
-            comingSoon: true
-          }
-        ]
-      }
-    ]
+            comingSoon: true,
+          },
+        ],
+      },
+    ],
   },
   {
     name: "Company",
@@ -85,8 +86,7 @@ export const subMenu = [
     submenu: [
       { name: "culture", icon: "" },
       { name: "Career", icon: "" },
-      { name: "Press", icon: "" }
-    ]
-  }
+      { name: "Press", icon: "" },
+    ],
+  },
 ];
-
