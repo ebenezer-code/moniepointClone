@@ -1,5 +1,8 @@
 @import "tailwindcss";
-body{
-    margin: 0;
-    padding: 0;
+body {
+  margin: 0;
+  padding: 0;
+}
+.founders-font {
+  font-family: "Founders Grotesk", sans-serif;
 }
