@@ -8,15 +8,17 @@ export const Menu = () => {
     activeSubIndex: null,
     hoverSubIndex: null,
   });
+
   const updateMenuState = (updates) => {
     setMenuState((prev) => ({ ...prev, ...updates }));
   };
+
   const getActiveSub = () =>
     menuState.hoverSubIndex ?? menuState.activeSubIndex;
 
   return (
     <div
-      className="relative flex items-center justify-center gap-2 space-x-4"
+      className="lg:relative lg:flex lg:items-center lg:justify-center lg:gap-2 lg:space-x-4"
       onMouseEnter={() => {}}
       onMouseLeave={() => {
         updateMenuState({
@@ -28,7 +30,7 @@ export const Menu = () => {
       {menuData.map((item, i) => (
         <button
           key={i}
-          className="flex items-center justify-center gap-1 cursor-pointer transition-all ease-in-out duration-200"
+          className="lg:flex lg:items-center lg:justify-center lg:gap-1 lg:cursor-pointer lg:transition-all lg:ease-in-out lg:duration-200"
           onMouseEnter={() => {
             const hasNestedSubmenu = item.submenu?.some(
               (s) => s.submenu?.length
@@ -44,17 +46,14 @@ export const Menu = () => {
           {item.name}
           {menuState.activeMenu === i && (
             <div
-              className={`
-    absolute top-full left-1/2 -translate-x-1/2 bg-red-600 text-[#030B1D]  text-[18px] shadow-lg rounded-md p-6 z-50
-    transition-all duration-300 founders-font
-  ${
-    item.submenu?.some((s) => s.submenu?.length)
-      ? "flex items-start justify-start gap-8 min-w-[700px] text-left"
-      : "grid gap-2 min-w-[250px] text-left"
-  }
-  `}
+              className={`lg:absolute lg:top-full lg:left-1/2 lg:-translate-x-1/2 lg:bg-red-600 lg:text-[#030B1D] lg:text-[18px] lg:shadow-lg lg:rounded-md lg:p-6 lg:z-50 lg:transition-all lg:duration-300 founders-font
+                ${
+                  item.submenu?.some((s) => s.submenu?.length)
+                    ? "lg:flex lg:items-start lg:justify-start lg:gap-8 lg:min-w-[700px] lg:text-left"
+                    : "lg:grid lg:gap-2 lg:min-w-[250px] lg:text-left"
+                }`}
             >
-              <div className="w-full">
+              <div className="lg:w-full">
                 {item.submenu?.map((sub, j) => {
                   const isActive = getActiveSub() === j;
                   const isCompany = item.name === "Company";
@@ -62,14 +61,14 @@ export const Menu = () => {
                   return (
                     <div
                       key={j}
-                      className={`cursor-pointer p-2 rounded-md transition-all duration-200 ${
+                      className={`lg:cursor-pointer lg:p-2 lg:rounded-md lg:transition-all lg:duration-200 ${
                         isActive
                           ? isCompany
-                            ? "font-bold"
-                            : "bg-[#37435D] text-[#030B1D] font-semibold"
+                            ? "lg:font-bold"
+                            : "lg:bg-[#37435D] lg:text-[#030B1D] lg:font-semibold"
                           : isCompany
-                          ? "hover:text-blue-200"
-                          : "hover:bg-[#37435D]"
+                          ? "lg:hover:text-blue-200"
+                          : "lg:hover:bg-[#37435D]"
                       }`}
                       onMouseEnter={() => updateMenuState({ hoverSubIndex: j })}
                       onClick={() => updateMenuState({ activeSubIndex: j })}
@@ -77,7 +76,7 @@ export const Menu = () => {
                       <p>{sub.name}</p>
 
                       {sub.about && (
-                        <p className="text-[#37435D] text-sm w-[350px]">
+                        <p className="lg:text-[#37435D] lg:text-sm lg:w-[350px]">
                           {sub.about}
                         </p>
                       )}
@@ -86,12 +85,15 @@ export const Menu = () => {
                 })}
               </div>
               {item.submenu?.some((s) => s.submenu?.length) && (
-                <div className="w-full transition-opacity duration-300">
+                <div className="lg:w-full lg:transition-opacity lg:duration-300">
                   {item.submenu?.[getActiveSub()]?.submenu?.map((item, k) => (
-                    <div key={k} className="p-2 text-left whitespace-nowrap">
+                    <div
+                      key={k}
+                      className="lg:p-2 lg:text-left lg:whitespace-nowrap"
+                    >
                       {item.name}
                       {item.comingSoon && (
-                        <span className="ml-2 text-yellow-300 text-xs">
+                        <span className="lg:ml-2 lg:text-yellow-300 lg:text-xs">
                           (Coming Soon)
                         </span>
                       )}

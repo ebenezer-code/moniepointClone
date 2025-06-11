@@ -5,6 +5,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import { Menu } from "./Menu";
 
 const navLink = ["Business", "Personal"];
+const Links = ["About", "Contact", "Blog"];
 
 const Header = () => {
   const [state, setState] = useState({
@@ -65,16 +66,30 @@ const Header = () => {
           <div className="hidden lg:flex space-x-6">
             <Menu />
           </div>
-          <div className="hidden lg:flex space-x-6">
-            <ul className="flex space-x-4">
-              <li>About</li>
-              <li>Contact</li>
-              <li>Blog</li>
+          <div className="hidden lg:flex lg:space-x-6">
+            <ul className="lg:flex lg:space-x-4">
+              {Links.map((link, i) => (
+                <li
+                  key={i}
+                  onClick={() => setState({ ...state, isActive: link })}
+                  className={`${
+                    state.isActive === link
+                      ? "lg:bg-[#37435D]"
+                      : "lg:bg-transparent"
+                  } lg:rounded-full lg:hover:bg-[#37435D] lg:flex lg:items-center lg:justify-center lg:border-[#808080] ${
+                    state.isActive === link[i]
+                      ? "lg:border-b-[0.2px]"
+                      : "lg:border-none"
+                  } lg:transition-background lg:duration-300 lg:ease-in-out`}
+                >
+                  {link}
+                </li>
+              ))}
             </ul>
           </div>
-          <div className="hidden lg:flex items-center space-x-4">
+          <div className="hidden lg:flex lg:items-center lg:space-x-4">
             <button>Sign in →</button>
-            <div className="flex items-center space-x-1">
+            <div className="lg:flex lg:items-center lg:space-x-1">
               <p>country logo</p>
               <span>icon</span>
             </div>
