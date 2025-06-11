@@ -63,7 +63,7 @@ const Header = () => {
           </ul>
         </div>
         <div className="flex flex-col lg:flex-row lg:items-center lg:space-x-6 lg:w-1/2 w-full">
-          <div className="hidden lg:flex space-x-6">
+          <div className="hidden lg:flex lg:space-x-6">
             <Menu />
           </div>
           <div className="hidden lg:flex lg:space-x-6">
