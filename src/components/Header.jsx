@@ -6,13 +6,14 @@ import { IoMdArrowRoundForward } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
 import { Menu } from "./Menu";
 import nig from "../assets/svg/nig.svg";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navLink = ["Business", "Personal"];
 const Links = ["About", "Contact", "Blog"];
 
 const Header = () => {
   const [state, setState] = useState({
-    isMenuOpen: false,
+    isMenuOpen: true,
     isActive: navLink[0],
   });
 
@@ -45,7 +46,11 @@ const Header = () => {
               />
             </div>
           </div>
-          <ul className="flex w-full h-14 lg:h-8 lg:flex lg:space-x-6 lg:w-auto cursor-pointer">
+          <ul
+            className={`${
+              state.isMenuOpen ? "hidden" : "flex"
+            } transition-all duration-300 ease-in-out w-full h-14 lg:h-8 lg:flex lg:space-x-6 lg:w-auto cursor-pointer`}
+          >
             {navLink.map((item, i) => (
               <li
                 key={i}
@@ -102,6 +107,23 @@ const Header = () => {
           </div>
         </div>
       </nav>
+      <AnimatePresence>
+        {state.isMenuOpen && (
+          <motion.div
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="fixed inset-0 bg-[#061435] z-40 flex flex-col p-6 space-y-6"
+          >
+            <div className="flex justify-between items-center">
+              <img src={logo} alt="Logo" className="h-7" />
+              <IoCloseSharp
+                onClick={() => setState({ ...state, isMenuOpen: false })}
+                className="text-3xl cursor-pointer"
+              />
+            </div>
+            <Menu />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };
