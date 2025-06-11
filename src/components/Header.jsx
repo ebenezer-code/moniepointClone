@@ -2,7 +2,10 @@ import { useState } from "react";
 import logo from "../assets/headerIcons/logo.png";
 import { IoMenu } from "react-icons/io5";
 import { IoCloseSharp } from "react-icons/io5";
+import { IoMdArrowRoundForward } from "react-icons/io";
+import { IoIosArrowDown } from "react-icons/io";
 import { Menu } from "./Menu";
+import nig from "../assets/svg/nig.svg";
 
 const navLink = ["Business", "Personal"];
 const Links = ["About", "Contact", "Blog"];
@@ -76,22 +79,25 @@ const Header = () => {
                     state.isActive === link
                       ? "lg:bg-[#37435D]"
                       : "lg:bg-transparent"
-                  } lg:rounded-full lg:hover:bg-[#37435D] lg:flex lg:items-center lg:justify-center lg:border-[#808080] ${
-                    state.isActive === link[i]
-                      ? "lg:border-b-[0.2px]"
-                      : "lg:border-none"
-                  } lg:transition-background lg:duration-300 lg:ease-in-out`}
+                  } lg:rounded-full lg:hover:bg-[#37435D] lg:flex lg:items-center lg:justify-center lg:border-[#808080] lg:cursor-pointer lg:p-2 lg:w-1/2`}
                 >
                   {link}
                 </li>
               ))}
             </ul>
           </div>
-          <div className="hidden lg:flex lg:items-center lg:space-x-4">
-            <button>Sign in →</button>
-            <div className="lg:flex lg:items-center lg:space-x-1">
-              <p>country logo</p>
-              <span>icon</span>
+          <div className="hidden lg:flex lg:items-center lg:justify-center lg:space-x-6">
+            <button className="lg:w-[100px] lg:whitespace-nowrap lg:bg-[#C4E9FD] lg:text-[#000000] lg:p-[10px] lg:pr-[5px]  lg:rounded-full lg:flex lg:items-center lg:justify-center lg:cursor-pointer">
+              Sign in
+              <span className="lg:px-1">
+                <IoMdArrowRoundForward />
+              </span>
+            </button>
+            <div className="lg:flex lg:items-center lg:justify-center lg:space-x-2 lg:cursor-pointer">
+              <img src={nig} />
+              <span className="lg:text-[20px]">
+                <IoIosArrowDown />
+              </span>
             </div>
           </div>
         </div>
