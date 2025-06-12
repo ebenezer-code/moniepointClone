@@ -1,7 +1,5 @@
-import React from "react";
-
 function MobileMenu() {
-  return <div>MobileMenu</div>;
+  return <div></div>;
 }
 
 export default MobileMenu;
