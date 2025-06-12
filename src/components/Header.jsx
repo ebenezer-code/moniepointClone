@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import logo from "../assets/headerIcons/logo.png";
 import { IoMenu } from "react-icons/io5";
 import { IoCloseSharp } from "react-icons/io5";
@@ -7,6 +7,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { Menu } from "./Menu";
 import nig from "../assets/svg/nig.svg";
 import { motion, AnimatePresence } from "framer-motion";
+import MobileMenu from "./MobileMenu";
 
 const navLink = ["Business", "Personal"];
 const Links = ["About", "Contact", "Blog"];
@@ -17,8 +18,27 @@ const Header = () => {
     isActive: navLink[0],
   });
 
+  useEffect(() => {
+    const handleWindowBlur = () =>
+      setState((prev) => ({ ...prev, isMenuOpen: false }));
+    const handleSize = () => {
+      if (window.innerWidth >= 1024)
+        setState((prev) => ({ ...prev, isMenuOpen: false }));
+    };
+
+    window.addEventListener("blur", handleWindowBlur);
+    window.addEventListener("resize", handleSize);
+
+    return () => {
+      window.removeEventListener("blur", handleWindowBlur);
+      window.removeEventListener("resize", handleSize);
+    };
+  }, []);
+
   return (
-    <header className="w-full bg-[#061435] text-white sticky top-0 z-50 font-[Inter] text-[15px]">
+    <header
+      className={`w-full bg-[#061435] text-white sticky top-0 z-50 font-[Inter] text-[15px]`}
+    >
       <nav className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-start lg:items-center justify-between h-auto lg:h-20 p-0 lg:p-6 space-y-4 lg:space-y-0 lg:space-x-40">
         <div className="flex flex-col-reverse lg:flex-row lg:items-center lg:space-x-6 lg:w-1/2 w-full">
           <div className="flex w-full justify-between p-4 items-center lg:w-auto lg:p-0">
@@ -27,30 +47,38 @@ const Header = () => {
               alt="Logo"
               className="h-7 hover:scale-105 transition-all ease-in-out duration-300 cursor-pointer"
             />
-            <div className="w-6 h-6 lg:hidden">
-              {state.isMenuOpen ? (
-                <IoCloseSharp
-                  onClick={() => setState({ ...state, isMenuOpen: false })}
-                  className={`text-2xl transition-all duration-200 ease-in-out`}
-                />
-              ) : (
-                <IoMenu
-                  onClick={() => setState({ ...state, isMenuOpen: true })}
-                  className={`text-2xl transition-all duration-200 ease-in-out`}
-                />
-              )}
+            <div className="w-6 h-6 lg:hidden relative">
+              <IoMenu
+                onClick={() => setState({ ...state, isMenuOpen: true })}
+                className={`text-2xl absolute transition-opacity duration-200 ease-in-out cursor-pointer ${
+                  state.isMenuOpen
+                    ? "opacity-0 pointer-events-none"
+                    : "opacity-100"
+                }`}
+              />
+              <IoCloseSharp
+                onClick={() => setState({ ...state, isMenuOpen: false })}
+                className={`text-2xl absolute transition-opacity duration-200 ease-in-out cursor-pointer ${
+                  state.isMenuOpen
+                    ? "opacity-100"
+                    : "opacity-0 pointer-events-none"
+                }`}
+              />
             </div>
           </div>
+
           <ul
             className={`${
-              state.isMenuOpen ? "hidden" : "flex"
-            } transition-all duration-300 ease-in-out w-full h-14 lg:h-8 lg:flex lg:space-x-6 lg:w-auto cursor-pointer`}
+              state.isMenuOpen ? "h-0 invisible" : "h-14 visible"
+            }w-full flex lg:h-8 lg:flex lg:space-x-6 lg:w-auto cursor-pointer transition-all duration-300 ease-in-out`}
           >
             {navLink.map((item, i) => (
               <li
                 key={i}
                 onClick={() => setState({ ...state, isActive: item })}
-                className={`${
+                className={`overflow-hidden ${
+                  state.isMenuOpen ? "invisible lg:visible" : "visible"
+                } ${
                   state.isActive === item
                     ? "bg-[#0E2256] lg:bg-[#37435D]"
                     : "bg-transparent"
@@ -105,16 +133,9 @@ const Header = () => {
       <AnimatePresence>
         {state.isMenuOpen && (
           <motion.div
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed inset-0 bg-[#061435] z-40 flex flex-col p-6 space-y-6 lg:hidden"
+            className={`transition-all duration-300 ease-in-out min-h-screen bg-[#061435] w-full lg:hidden`}
           >
-            <div className="flex justify-between items-center">
-              <img src={logo} alt="Logo" className="h-7" />
-              <IoCloseSharp
-                onClick={() => setState({ ...state, isMenuOpen: false })}
-                className="text-3xl cursor-pointer"
-              />
-            </div>
+            <MobileMenu />
           </motion.div>
         )}
       </AnimatePresence>
