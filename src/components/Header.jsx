@@ -13,7 +13,7 @@ const Links = ["About", "Contact", "Blog"];
 
 const Header = () => {
   const [state, setState] = useState({
-    isMenuOpen: true,
+    isMenuOpen: false,
     isActive: navLink[0],
   });
 
@@ -27,23 +27,18 @@ const Header = () => {
               alt="Logo"
               className="h-7 hover:scale-105 transition-all ease-in-out duration-300 cursor-pointer"
             />
-            <div className="relative w-6 h-6 lg:hidden">
-              <IoMenu
-                onClick={() => setState({ ...state, isMenuOpen: true })}
-                className={`absolute top-0 left-0 text-2xl transition-opacity duration-200 ${
-                  state.isMenuOpen
-                    ? "opacity-0 pointer-events-none"
-                    : "opacity-100"
-                }`}
-              />
-              <IoCloseSharp
-                onClick={() => setState({ ...state, isMenuOpen: false })}
-                className={`absolute top-0 left-0 text-2xl transition-opacity duration-200 ${
-                  state.isMenuOpen
-                    ? "opacity-100"
-                    : "opacity-0 pointer-events-none"
-                }`}
-              />
+            <div className="w-6 h-6 lg:hidden">
+              {state.isMenuOpen ? (
+                <IoCloseSharp
+                  onClick={() => setState({ ...state, isMenuOpen: false })}
+                  className={`text-2xl transition-all duration-200 ease-in-out`}
+                />
+              ) : (
+                <IoMenu
+                  onClick={() => setState({ ...state, isMenuOpen: true })}
+                  className={`text-2xl transition-all duration-200 ease-in-out`}
+                />
+              )}
             </div>
           </div>
           <ul
@@ -111,7 +106,7 @@ const Header = () => {
         {state.isMenuOpen && (
           <motion.div
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed inset-0 bg-[#061435] z-40 flex flex-col p-6 space-y-6"
+            className="fixed inset-0 bg-[#061435] z-40 flex flex-col p-6 space-y-6 lg:hidden"
           >
             <div className="flex justify-between items-center">
               <img src={logo} alt="Logo" className="h-7" />
@@ -120,7 +115,6 @@ const Header = () => {
                 className="text-3xl cursor-pointer"
               />
             </div>
-            <Menu />
           </motion.div>
         )}
       </AnimatePresence>
