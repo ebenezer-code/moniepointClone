@@ -76,7 +76,7 @@ const Header = () => {
               <li
                 key={i}
                 onClick={() => setState({ ...state, isActive: item })}
-                className={`overflow-hidden ${
+                className={`overflow-hidden lg:overflow-auto ${
                   state.isMenuOpen ? "invisible lg:visible" : "visible"
                 } ${
                   state.isActive === item

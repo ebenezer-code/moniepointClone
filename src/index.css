@@ -6,3 +6,15 @@ body {
 .founders-font {
   font-family: "Founders Grotesk", sans-serif;
 }
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #3158ee;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3158ee;
+  cursor: grab;
+}
