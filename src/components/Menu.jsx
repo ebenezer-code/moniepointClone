@@ -5,108 +5,204 @@ import { IoIosArrowDown } from "react-icons/io";
 export const Menu = () => {
   const [menuState, setMenuState] = useState({
     activeMenu: null,
-    activeSubIndex: null,
-    hoverSubIndex: null,
+    activeSubIndex: 0,
+    activeSubSubMap: {},
   });
 
   const updateMenuState = (updates) => {
     setMenuState((prev) => ({ ...prev, ...updates }));
   };
 
-  const getActiveSub = () =>
-    menuState.hoverSubIndex ?? menuState.activeSubIndex;
+  const handleMenuHover = (menuIndex) => {
+    updateMenuState({
+      activeMenu: menuIndex,
+      activeSubIndex: 0,
+    });
+  };
+
+  const handleSubHover = (subIndex) => {
+    updateMenuState({
+      activeSubIndex: subIndex,
+    });
+  };
+
+  const handleChildHover = (subIndex, childIndex, comingSoon) => {
+    if (comingSoon) return;
+    setMenuState((prev) => ({
+      ...prev,
+      activeSubSubMap: {
+        ...prev.activeSubSubMap,
+        [subIndex]: childIndex,
+      },
+    }));
+  };
 
   return (
     <div
-      className="lg:relative lg:flex lg:items-center lg:justify-center lg:gap-2 lg:space-x-4"
-      onMouseEnter={() => {}}
-      onMouseLeave={() => {
-        updateMenuState({
-          activeMenu: null,
-          hoverSubIndex: null,
-        });
-      }}
+      className="lg:relative lg:flex lg:items-center lg:gap-6"
+      onMouseLeave={() => updateMenuState({ activeMenu: null })}
     >
-      {menuData.map((item, i) => (
-        <button
-          key={i}
-          className="lg:flex lg:items-center lg:justify-center lg:gap-1 lg:cursor-pointer lg:transition-all lg:ease-in-out lg:duration-200"
-          onMouseEnter={() => {
-            const hasNestedSubmenu = item.submenu?.some(
-              (s) => s.submenu?.length
-            );
-
-            updateMenuState({
-              activeMenu: i,
-              activeSubIndex: hasNestedSubmenu ? 0 : null,
-              hoverSubIndex: null,
-            });
-          }}
+      {menuData.map((menu, menuIndex) => (
+        <div
+          key={menuIndex}
+          className="lg:relative lg:cursor-pointer"
+          onMouseEnter={() => handleMenuHover(menuIndex)}
         >
-          {item.name}
-          {menuState.activeMenu === i && (
-            <div
-              className={`lg:absolute lg:top-full lg:left-1/2 lg:-translate-x-1/2 lg:bg-red-600 lg:text-[#030B1D] lg:text-[18px] lg:shadow-lg lg:rounded-md lg:p-6 lg:z-50 lg:transition-all lg:duration-300 founders-font
-                ${
-                  item.submenu?.some((s) => s.submenu?.length)
-                    ? "lg:flex lg:items-start lg:justify-start lg:gap-8 lg:min-w-[700px] lg:text-left"
-                    : "lg:grid lg:gap-2 lg:min-w-[250px] lg:text-left"
-                }`}
-            >
-              <div className="lg:w-full">
-                {item.submenu?.map((sub, j) => {
-                  const isActive = getActiveSub() === j;
-                  const isCompany = item.name === "Company";
+          <div className="lg:flex lg:items-center lg:gap-2 text-base font-medium">
+            {menu.name}
+            <IoIosArrowDown />
+          </div>
 
+          {menuState.activeMenu === menuIndex && (
+            <div
+              className={`lg:absolute lg:top-full lg:left-1/2 lg:-translate-x-1/2 lg:bg-white lg:shadow-2xl lg:rounded-xl lg:py-5 lg:px-6 lg:z-50 ${
+                menu.submenu?.some((s) => s.submenu?.length)
+                  ? "lg:flex lg:gap-10 lg:min-w-[750px]"
+                  : "lg:grid lg:gap-4 lg:min-w-[300px]"
+              }`}
+            >
+              {/* Submenu */}
+              <div className="lg:w-full">
+                {menu.submenu.map((sub, subIndex) => {
+                  const isActive = subIndex === menuState.activeSubIndex;
+                  const isCompany = menu.name === "Company";
                   return (
                     <div
-                      key={j}
-                      className={`lg:cursor-pointer lg:p-2 lg:rounded-md lg:transition-all lg:duration-200 ${
-                        isActive
-                          ? isCompany
-                            ? "lg:font-bold"
-                            : "lg:bg-[#37435D] lg:text-[#030B1D] lg:font-semibold"
-                          : isCompany
-                          ? "lg:hover:text-blue-200"
-                          : "lg:hover:bg-[#37435D]"
+                      key={subIndex}
+                      className={`lg:p-3 lg:rounded-lg lg:transition-all text-black ${
+                        isActive ? "lg:bg-[#37435D]" : "lg:hover:bg-[#37435D]"
                       }`}
-                      onMouseEnter={() => updateMenuState({ hoverSubIndex: j })}
-                      onClick={() => updateMenuState({ activeSubIndex: j })}
+                      onMouseEnter={() => handleSubHover(subIndex)}
                     >
-                      <p>{sub.name}</p>
-
-                      {sub.about && (
-                        <p className="lg:text-[#37435D] lg:text-sm lg:w-[350px]">
-                          {sub.about}
-                        </p>
+                      {isCompany ? (
+                        <div className="lg:flex lg:items-center lg:gap-2">
+                          {sub.icon && (
+                            <sub.icon
+                              className={`text-xl ${
+                                isActive ? "text-white" : "text-[#37435D]"
+                              }`}
+                            />
+                          )}
+                          <p
+                            className={`font-semibold text-base ${
+                              isActive ? "text-white" : "text-black"
+                            }`}
+                          >
+                            {sub.name}
+                          </p>
+                          {sub.about && (
+                            <p
+                              className={`text-sm ${
+                                isActive ? "text-gray-300" : "text-gray-600"
+                              } mt-1`}
+                            >
+                              {sub.about}
+                            </p>
+                          )}
+                        </div>
+                      ) : (
+                        <>
+                          <p
+                            className={`font-semibold text-base ${
+                              isActive ? "text-white" : "text-black"
+                            }`}
+                          >
+                            {sub.name}
+                          </p>
+                          {sub.about && (
+                            <p
+                              className={`text-sm ${
+                                isActive ? "text-gray-300" : "text-gray-600"
+                              } mt-1`}
+                            >
+                              {sub.about}
+                            </p>
+                          )}
+                        </>
                       )}
                     </div>
                   );
                 })}
               </div>
-              {item.submenu?.some((s) => s.submenu?.length) && (
-                <div className="lg:w-full lg:transition-opacity lg:duration-300">
-                  {item.submenu?.[getActiveSub()]?.submenu?.map((item, k) => (
-                    <div
-                      key={k}
-                      className="lg:p-2 lg:text-left lg:whitespace-nowrap"
-                    >
-                      {item.name}
-                      {item.comingSoon && (
-                        <span className="lg:ml-2 lg:text-yellow-300 lg:text-xs">
-                          (Coming Soon)
-                        </span>
-                      )}
-                    </div>
-                  ))}
+
+              {/* Sub-submenu (children) */}
+              {menu.submenu[menuState.activeSubIndex]?.submenu?.length > 0 && (
+                <div className="lg:w-full">
+                  {menu.submenu[menuState.activeSubIndex].submenu.map(
+                    (child, childIndex) => {
+                      const isChildActive =
+                        menuState.activeSubSubMap[menuState.activeSubIndex] ===
+                        childIndex;
+
+                      const Icon = child.icon;
+                      const isComingSoon = child.comingSoon;
+
+                      return (
+                        <div
+                          key={childIndex}
+                          className={`group lg:flex lg:items-start lg:gap-4 lg:py-3 lg:px-2 lg:rounded-lg transition-all cursor-pointer`}
+                          onMouseEnter={() =>
+                            handleChildHover(
+                              menuState.activeSubIndex,
+                              childIndex,
+                              isComingSoon
+                            )
+                          }
+                        >
+                          {/* Icon container */}
+                          <div
+                            className={`p-3 rounded-lg transition-all ${
+                              isComingSoon
+                                ? "bg-[#37435D]"
+                                : isChildActive
+                                ? "bg-[#3158EE]"
+                                : "group-hover:bg-[#3158EE] bg-[#37435D]"
+                            }`}
+                          >
+                            {child.icon && (
+                              <Icon
+                                className={`text-xl transition-colors ${
+                                  child.comingSoon
+                                    ? "text-black"
+                                    : isChildActive
+                                    ? "text-white"
+                                    : "group-hover:text-white text-black"
+                                }`}
+                              />
+                            )}
+                          </div>
+
+                          {/* Text */}
+                          <div className="space-y-1">
+                            <p
+                              className={`font-semibold text-base flex items-center gap-2 transition-colors ${
+                                isComingSoon
+                                  ? "text-black"
+                                  : isChildActive
+                                  ? "text-[#3259EC]"
+                                  : "group-hover:text-[#3259EC] text-black"
+                              }`}
+                            >
+                              {child.name}
+                              {isComingSoon && (
+                                <span className="text-xs bg-gray-300 text-gray-700 px-2 py-0.5 rounded-full">
+                                  Coming Soon
+                                </span>
+                              )}
+                            </p>
+                            <p className="text-sm text-gray-700">
+                              {child.about}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    }
+                  )}
                 </div>
               )}
             </div>
           )}
-          <span>
-            <IoIosArrowDown />
-          </span>
-        </button>
+        </div>
       ))}
     </div>
   );
