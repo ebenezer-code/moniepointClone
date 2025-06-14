@@ -1,42 +1,15 @@
-import { useState } from "react";
 import { subMenu as menuData } from "../data/menu";
 import { IoIosArrowDown } from "react-icons/io";
+import useDropDown from "../hooks/useDropDown";
 
 export const Menu = () => {
-  const [menuState, setMenuState] = useState({
-    activeMenu: null,
-    activeSubIndex: 0,
-    activeSubSubMap: {},
-  });
-
-  const updateMenuState = (updates) => {
-    setMenuState((prev) => ({ ...prev, ...updates }));
-  };
-
-  const handleMenuHover = (menuIndex) => {
-    updateMenuState({
-      activeMenu: menuIndex,
-      activeSubIndex: 0,
-    });
-  };
-
-  const handleSubHover = (subIndex) => {
-    updateMenuState({
-      activeSubIndex: subIndex,
-    });
-  };
-
-  const handleChildHover = (subIndex, childIndex, comingSoon) => {
-    if (comingSoon) return;
-    setMenuState((prev) => ({
-      ...prev,
-      activeSubSubMap: {
-        ...prev.activeSubSubMap,
-        [subIndex]: childIndex,
-      },
-    }));
-  };
-
+  const {
+    menuState,
+    updateMenuState,
+    handleMenuHover,
+    handleSubHover,
+    handleChildHover,
+  } = useDropDown();
   return (
     <div
       className="lg:relative lg:flex lg:items-center lg:gap-6"
